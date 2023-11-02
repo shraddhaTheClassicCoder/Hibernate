@@ -8,7 +8,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 //@DynamicInsert(value=true)//It will create query at runtime and insert
-//@DynamicUpdate(value=true)
+@DynamicUpdate(value=true)
 public class Student {
     
 	@Id

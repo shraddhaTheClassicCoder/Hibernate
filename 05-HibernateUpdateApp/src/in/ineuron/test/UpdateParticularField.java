@@ -16,7 +16,7 @@ public class UpdateParticularField {
 		Session session = null;
 		Transaction tx = null;
 		boolean flag = false;
-		Integer id = 21;
+		Integer id = 25;
 		try {
 
 			session = HibernateUtil.getSession();
@@ -30,9 +30,9 @@ public class UpdateParticularField {
 				if (tx != null) {
 					if (student != null) {
 
-						student.setSname("siya");
-						student.setSaddress("thane");
-						student.setSage(23);
+						student.setSname("shraddha");
+						//student.setSaddress("thane");
+						//student.setSage(23);
 
 						session.update(student);
 						flag = true;
