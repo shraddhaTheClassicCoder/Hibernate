@@ -5,7 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import in.ineuron.model.BankAccount;
+import in.ineuron.model.InsurancePolicy;
 import in.ineuron.util.HibernateUtil;
 
 public class SelectRecord {
@@ -18,17 +18,17 @@ public class SelectRecord {
 		Transaction transaction = null;
 		boolean flag = false;
 		Long id = 1L;
-		BankAccount account = null;
+		InsurancePolicy account = null;
 
 		// Integer id = 25;
 		try {
 
 			session = HibernateUtil.getSession();
-			account = new BankAccount();
+			account = new InsurancePolicy();
 
 			if (session != null) {
 
-				account = session.get(BankAccount.class, id);
+				account = session.get(InsurancePolicy.class, id);
 				System.out.println("Account before modification::" + account);
 
 				if (account != null) {

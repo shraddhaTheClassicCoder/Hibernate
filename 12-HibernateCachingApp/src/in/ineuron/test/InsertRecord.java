@@ -15,43 +15,37 @@ public class InsertRecord {
 		SessionFactory factory = null;
 		Session session = null;
 		Transaction transaction = null;
-		boolean flag = false;
 		Long id = null;
+		boolean flag = false;
 
-		// Integer id = 25;
 		try {
-
 			session = HibernateUtil.getSession();
-			InsurancePolicy account = new InsurancePolicy();
-			System.out.println("Before modification :: " + account);
-			if (session != null) {
+
+			if (session != null)
 				transaction = session.beginTransaction();
-			}
 
 			if (transaction != null) {
-				account.setHolderName("manya");
-				account.setBalance(1000.20);
-				account.setAccNo((long) 3339876.5);
-				account.setType("saving");
+				InsurancePolicy policy = new InsurancePolicy();
+				policy.setCompany("HDFC");
+				policy.setPolicyName("Jeevan Anand");
+				policy.setPolicyType("yearly");
+				policy.setTenure(5);
 
-				id = (Long) session.save(account);
+				id = (Long) session.save(policy);
 				flag = true;
-
 			}
-		}
 
-		catch (HibernateException e) {
+		} catch (HibernateException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
 			e.printStackTrace();
-
 		} finally {
 			if (flag) {
 				transaction.commit();
-				System.out.println("Record Saved in the Database with id::" + id);
+				System.out.println("Object inserted to  the database with the id :: " + id);
 			} else {
 				transaction.rollback();
-				System.out.println("Record is not Saved or Updated in the Database");
+				System.out.println("Object not inserted to the database...");
 			}
 			HibernateUtil.closeUp(session, factory);
 		}
