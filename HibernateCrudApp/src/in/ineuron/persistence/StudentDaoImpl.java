@@ -66,9 +66,9 @@ public class StudentDaoImpl implements IStudentDao {
 
 	}
 
-	public String updateStudent(Student newStudent) {
+	public String updateStudent(Student student) {
 
-		Student student = new Student();
+		// Student student = new Student();
 		String status = "";
 		try {
 
@@ -84,7 +84,7 @@ public class StudentDaoImpl implements IStudentDao {
 					 * student.setSaddress(newStudent.getSaddress());
 					 */
 
-					session.saveOrUpdate(newStudent);
+					session.merge(student);
 
 					flag = true;
 

@@ -90,7 +90,7 @@ public class TestApp {
 
 		if (student != null) {
 			System.out.println("SID" + "\t" + "SNAME" + "\t" + "SAGE" + "\t" + "SADDRESS");
-			System.out.println(student.getSid() + "\t" + student.getSname() + "\t" + student.getSname() + "\t"
+			System.out.println(student.getSid() + "\t" + student.getSname() + "\t" + student.getSage() + "\t"
 					+ student.getSaddress());
 		}
 	}
