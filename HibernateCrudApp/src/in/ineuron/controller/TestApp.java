@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
+import in.ineuron.Utility.HibernateUtil;
 import in.ineuron.dto.Student;
 import in.ineuron.service.IStudentService;
 import in.ineuron.servicefactory.StudentServiceFactory;
@@ -12,12 +13,12 @@ import in.ineuron.servicefactory.StudentServiceFactory;
 //controller logic
 public class TestApp {
 
-	public static void main(String[] args) throws IOException {
-	//	insertOpertation();
+	static {
+		HibernateUtil.startUp();
+	}
 
-		//searchOperation();
-		 UpdateOperation();
-		//deleteOperation();
+	public static void main(String[] args) throws IOException {
+
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		while (true) {
 
@@ -49,10 +50,10 @@ public class TestApp {
 				System.out.println("Invalid option plz try agin with valid options....");
 				break;
 			}
-			br.close();
+			
 
 		}
-				
+
 	}
 
 	private static void insertOpertation() {
@@ -69,13 +70,13 @@ public class TestApp {
 		System.out.print("Enter the address of student: ");
 		String saddress = scanner.next();
 
-		String msg = studentService.addStudent(sname, sage, saddress);
+		String msg = studentService.save(sname, sage, saddress);
 		if (msg.equalsIgnoreCase("success")) {
 			System.out.println("record inserted succesfully");
 		} else {
 			System.out.println("record insertion failed....");
 		}
-		scanner.close();
+		//scanner.close();
 	}
 
 	private static void searchOperation() {
@@ -86,7 +87,7 @@ public class TestApp {
 		System.out.print("Enter the sid of student: ");
 		int sid = scanner.nextInt();
 
-		Student student = studentService.searchStudent(sid);
+		Student student = studentService.searchById(sid);
 
 		if (student != null) {
 			System.out.println("SID" + "\t" + "SNAME" + "\t" + "SAGE" + "\t" + "SADDRESS");
@@ -118,59 +119,58 @@ public class TestApp {
 		 * if (updateMsg.equalsIgnoreCase("success")) {
 		 * System.out.println("Record Updated Successfully"); } else {
 		 * System.out.println("Record Updation  failed"); } scanner.close();
-		 */	
+		 */
 
-		//Logic implemented for if user does not enters any field details then old records should be preserved else entered records should be updated	
+		// Logic implemented for if user does not enters any field details then old
+		// records should be preserved else entered records should be updated
 		IStudentService studentService = StudentServiceFactory.getStudentService();
-		
-		BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		System.out.println("Enter the student Id to be Updated: ");
-		String Sid=br.readLine();
-		Student student=studentService.searchStudent(Integer.parseInt(Sid));
-		
-		if(student!=null) {
-			
-			Student newStudent=new Student();
-			
-			System.out.println("Student Id is:"+student.getSid());
+		String Sid = br.readLine();
+		Student student = studentService.searchById(Integer.parseInt(Sid));
+
+		if (student != null) {
+
+			Student newStudent = new Student();
+
+			System.out.println("Student Id is:" + student.getSid());
 			newStudent.setSid(student.getSid());
-			System.out.println("The Old Student Name is"+student.getSname()+"Enter the New Student Name: ");
-			String newName=br.readLine();
-			if(newName.equals(" ")||newName=="") {
+			System.out.println("The Old Student Name is" + student.getSname() + "Enter the New Student Name: ");
+			String newName = br.readLine();
+			if (newName.equals(" ") || newName == "") {
 				newStudent.setSname(student.getSname());
-			}else {
+			} else {
 				newStudent.setSname(newName);
 			}
-			
-			System.out.println("The Old Student Age is"+student.getSage()+"Enter the New Student Age: ");
-			String newAge=br.readLine();
-			if(newAge.equals(" ")||newAge=="") {
+
+			System.out.println("The Old Student Age is" + student.getSage() + "Enter the New Student Age: ");
+			String newAge = br.readLine();
+			if (newAge.equals(" ") || newAge == "") {
 				newStudent.setSage(student.getSage());
-			}else {
+			} else {
 				newStudent.setSage(Integer.parseInt(newAge));
 			}
-			
-			System.out.println("The Old Student Address is"+student.getSaddress()+"Enter the New Student Address: ");
-			String newAddrs=br.readLine();
-			if(newAddrs.equals(" ")||newAddrs=="") {
+
+			System.out
+					.println("The Old Student Address is" + student.getSaddress() + "Enter the New Student Address: ");
+			String newAddrs = br.readLine();
+			if (newAddrs.equals(" ") || newAddrs == "") {
 				newStudent.setSaddress(student.getSaddress());
-			}else {
+			} else {
 				newStudent.setSaddress(newAddrs);
 			}
-			
-			String status=studentService.updateStudent(newStudent);
-			
-			if(status.equals("success")) {
+
+			String status = studentService.updateById(newStudent);
+
+			if (status.equals("success")) {
 				System.out.println("Record updated successfully");
-			}
-			else {
+			} else {
 				System.out.println("Record Updation Failed");
 			}
-			
+
 		}
-		
-		
-		
+
 	}
 
 	private static void deleteOperation() {
@@ -180,12 +180,12 @@ public class TestApp {
 
 		System.out.print("Enter the sid of student: ");
 		int sid = scanner.nextInt();
-		String DeleteMsg = studentService.deleteStudent(sid);
+		String DeleteMsg = studentService.deleteById(sid);
 
 		if (DeleteMsg.equalsIgnoreCase("success")) {
-			System.out.println("Record Deleted Successfully with Id"+sid);
+			System.out.println("Record Deleted Successfully with Id" + sid);
 		} else {
-			System.out.println("Record is not available  with Id"+sid);
+			System.out.println("Record is not available  with Id" + sid);
 		}
 	}
 }

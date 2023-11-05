@@ -17,7 +17,7 @@ public class StudentDaoImpl implements IStudentDao {
 	Transaction transaction = null;
 
 	@Override
-	public String addStudent(String sname, Integer sage, String saddress) {
+	public String save(String sname, Integer sage, String saddress) {
 
 		Student student = new Student();
 		String status = "";
@@ -52,7 +52,7 @@ public class StudentDaoImpl implements IStudentDao {
 	}
 
 	@Override
-	public Student searchStudent(Integer sid) {
+	public Student searchById(Integer sid) {
 
 		Student student = new Student();
 
@@ -66,7 +66,7 @@ public class StudentDaoImpl implements IStudentDao {
 
 	}
 
-	public String updateStudent(Student student) {
+	public String updateById(Student student) {
 
 		// Student student = new Student();
 		String status = "";
@@ -107,7 +107,7 @@ public class StudentDaoImpl implements IStudentDao {
 	}
 
 	@Override
-	public String deleteStudent(Integer sid) {
+	public String deleteById(Integer sid) {
 
 		Student student = new Student();
 		String status = "";

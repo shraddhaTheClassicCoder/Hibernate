@@ -11,5 +11,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/HikariCp"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/Hibernate"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MyLib"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/HibernateHikariCp"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

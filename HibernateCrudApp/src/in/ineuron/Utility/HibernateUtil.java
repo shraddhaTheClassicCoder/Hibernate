@@ -6,8 +6,6 @@ import org.hibernate.cfg.Configuration;
 
 import in.ineuron.dto.Student;
 
-
-
 public class HibernateUtil {
 
 	private static SessionFactory sessionFactory = null;
@@ -41,4 +39,7 @@ public class HibernateUtil {
 		}
 	}
 
+	public static void startUp() {
+		System.out.println("********Hibernate SetUp has Started******");
+	}
 }
