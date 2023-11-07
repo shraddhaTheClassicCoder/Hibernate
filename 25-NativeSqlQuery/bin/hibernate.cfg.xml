@@ -12,7 +12,8 @@
 
 		<!-- OPTIONAL PROPERTIES FOR HIBERNATE -->
 
-		<!-- Prepare the query based on the mapping information for the underlying DATABASE -->
+		<!-- Prepare the query based on the mapping information for the underlying 
+			DATABASE -->
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
 
 		<!--Inform HIBERNATE to display the query on the console it has generated 
@@ -20,12 +21,15 @@
 		<property name="hibernate.show_sql">true</property>
 
 
-		<!--Inform HIBERNATE to display the query on the console it has generated internally in proper format -->
+		<!--Inform HIBERNATE to display the query on the console it has generated 
+			internally in proper format -->
 		<property name="hibernate.format_sql">true</property>
 
 		<!-- Inform HIBERNATE to create/alter/drop the table -->
 		<property name="hibernate.hbm2ddl.auto">update</property>
 
+          <!-- Mapping Information -->
+		<mapping class="in.ineuron.model.Student" />
 
 	</session-factory>
 
