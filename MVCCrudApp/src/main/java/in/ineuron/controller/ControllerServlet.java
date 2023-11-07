@@ -74,20 +74,10 @@ public class ControllerServlet extends HttpServlet {
 			String status = stdService.deleteStudent(Integer.parseInt(sid));
 			RequestDispatcher rd = null;
 
-			if (status.equals("success")) {
-				request.setAttribute("status", "success");
+				request.setAttribute("status", status);
 				rd = request.getRequestDispatcher("../deleteResult.jsp");
 				rd.forward(request, response);
-			} else if (status.equals("failure")) {
-				request.setAttribute("status", "failure");
-				rd = request.getRequestDispatcher("../deleteResult.jsp");
-				rd.forward(request, response);
-
-			} else {
-				request.setAttribute("status", "not found");
-				rd = request.getRequestDispatcher("../deleteResult.jsp");
-				rd.forward(request, response);
-			}
+			
 		}
 		if (request.getRequestURI().endsWith("editform")) {
 			String sid = request.getParameter("sid");
@@ -115,13 +105,10 @@ public class ControllerServlet extends HttpServlet {
 			String status = stdService.updateStudent(student);
 			RequestDispatcher rd = null;
 
-			if (status.equals("success")) {
-				rd = request.getRequestDispatcher("../../updatesuccess.html");
-				rd.forward(request, response);
-			} else {
-				rd = request.getRequestDispatcher("../../updatefailure.html");
-				rd.forward(request, response);
-			}
+			request.setAttribute("status", status);
+			rd = request.getRequestDispatcher("../../updateResult.jsp");
+			rd.forward(request, response);
+		
 
 		}
 	}

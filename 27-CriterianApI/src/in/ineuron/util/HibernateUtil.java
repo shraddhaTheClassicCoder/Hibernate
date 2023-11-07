@@ -4,7 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import in.ineuron.model.Student;
+import in.ineuron.model.Product;
 
 public class HibernateUtil {
 
@@ -12,26 +12,31 @@ public class HibernateUtil {
 	private static Session session = null;
 
 	private HibernateUtil() {
+		// Making constructor private so no one can create object of it outside of the
+		// class
 	}
 
 	static {
-		sessionFactory = new Configuration().configure().addAnnotatedClass(Student.class).buildSessionFactory();
+		sessionFactory = new Configuration().configure().addAnnotatedClass(Product.class).buildSessionFactory();
+
 	}
 
 	public static Session getSession() {
-		if (session == null)
+		if (session == null) {
 			session = sessionFactory.openSession();
+
+		}
 		return session;
 	}
 
-	public static void closeSession(Session session) {
-		if (session != null)
-			session.close();
-	}
+	public static void closeUp(Session session, SessionFactory sessionFactory) {
 
-	public static void closeSessionFactory() {
-		if (sessionFactory != null)
+		if (session != null) {
+			session.close();
+		}
+		if (sessionFactory != null) {
 			sessionFactory.close();
+		}
 	}
 
 }

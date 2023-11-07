@@ -28,8 +28,7 @@
 		<!-- Inform HIBERNATE to create/alter/drop the table -->
 		<property name="hibernate.hbm2ddl.auto">update</property>
 
-          <!-- Mapping Information -->
-		<mapping class="in.ineuron.model.Student" />
+         
 
 	</session-factory>
 

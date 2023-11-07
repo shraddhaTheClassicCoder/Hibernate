@@ -1,10 +1,9 @@
 package in.ineuron.test;
 
-import java.util.List;
-
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.NativeQuery;
 
 import in.ineuron.util.HibernateUtil;
@@ -14,32 +13,36 @@ public class InsertApp {
 
 		Session session = null;
 		SessionFactory factory = null;
+		int count = 0;
+		boolean flag = false;
+		Transaction transaction = null;
 
 		try {
 			session = HibernateUtil.getSession();
 
+			transaction=session.beginTransaction();
 			@SuppressWarnings("unchecked")
-			NativeQuery<Object[]> nativeQuery = session
-					.createSQLQuery("SELECT * FROM Student WHERE sage>=? AND sage<=?");
+			NativeQuery nativeQuery = session.createSQLQuery("insert into student(sname,sage,saddress) values(?,?,?)");
 
-			// setting parameter
-			nativeQuery.setParameter(1, 25);
-			nativeQuery.setParameter(2, 28);
+			// setting the parameter
+			nativeQuery.setParameter(1, "Shreya");
+			nativeQuery.setParameter(2, 23);
+			nativeQuery.setParameter(3, "Pune");
 
-			// Executing Result
-			List<Object[]> policies = nativeQuery.getResultList();
-            
-			System.out.println("SID\tSNAME\tSAGE\tSADDRESS");
-			// processing result
-			policies.forEach(row -> {
-				for (Object obj : row) {
-					System.out.print(obj+"\t");
-				}
-				System.out.println();
-			});
+			// Execute Query
+			count = nativeQuery.executeUpdate();
+			flag = true;
+
 		} catch (HibernateException e) {
 			e.printStackTrace();
 		} finally {
+			if (flag) {
+				transaction.commit();
+				System.out.println("Record inserted to database");
+			} else {
+				transaction.rollback();
+				System.out.println("Record failed to insert into database");
+			}
 			HibernateUtil.closeSession(session);
 			HibernateUtil.closeSessionFactory();
 		}
